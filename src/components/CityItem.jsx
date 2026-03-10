@@ -1,0 +1,34 @@
+import { Link } from "react-router-dom";
+import styles from "./CityItem.module.css";
+import * as Flags from "country-flag-icons/react/3x2";
+import { useCities } from "../contexts/CitiesContext";
+
+function CityItem({ city }) {
+  const { currentCity } = useCities();
+  const { cityName, date, emoji, id, position } = city;
+
+  const formatDate = (date) =>
+    new Intl.DateTimeFormat("en", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(date));
+
+  const Flag = Flags[emoji];
+
+  return (
+    <li>
+      <Link
+        className={`${styles.cityItem} ${id === currentCity.id ? styles["cityItem--active"] : ""}`}
+        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
+      >
+        <span>{Flag && <Flag width={28} />}</span>
+        <h3 className={styles.cityName}>{cityName}</h3>
+        <time className={styles.date}>({formatDate(date)})</time>
+        <button className={styles.deleteBtn}>&times;</button>
+      </Link>
+    </li>
+  );
+}
+
+export default CityItem;
