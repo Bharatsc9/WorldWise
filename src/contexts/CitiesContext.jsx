@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://worldwise.onrender.com/cities";
 
 const CityContext = createContext();
 
